@@ -135,4 +135,4 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: TG notification #TG推送
-      run: curl "https://sctapi.ftqq.com/SCT62842TGPT9i0XHeCHdqG6OR5m1x8Zm.send?title=N1164+0和N1163+打包成功"
+      run: curl "https://sctapi.ftqq.com/${{ secrets.WC_TOKEN }}.send?title=N1164+0和N1163+打包成功"
