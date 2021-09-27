@@ -40,7 +40,7 @@ jobs:
       
     - name: Initialization environment
       run: |     
-        version=$(curl -s "https://api.github.com/repos/Netflixxp/shangyou/releases/latest" | awk -F '"' '/tag_name/{print $4}')
+        version=$(curl -s "https://api.github.com/repos/3dudu/OpenWrt_N1_Testing/releases/latest" | awk -F '"' '/tag_name/{print $4}')
         
         echo "version=$version"  >> $GITHUB_ENV
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")"  >> $GITHUB_ENV
@@ -52,7 +52,7 @@ jobs:
       run: |
         cd /opt/kernel
         
-        wget  https://github.com/Netflixxp/shangyou/releases/download/$version/openwrt-armvirt-64-default-rootfs.tar.gz
+        wget  https://github.com/3dudu/OpenWrt_N1_Testing/releases/download/$version/openwrt-armvirt-64-default-rootfs.tar.gz
                 
     - name: Check Files
       run: |
@@ -123,14 +123,6 @@ jobs:
              5. chmod +x update-amlogic-openwrt.sh
              6. ./update-amlogic-openwrt.sh 固件名(例：`./update-amlogic-openwrt.sh HK1-jcnf-mini-62+o.img`)
         artifacts: "/opt/kernel/tmp/*"   
-
-    - name: Upload firmware to WeTransfer
-      if: steps.gz.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress /opt/openwrt/tmp/$RELEASE_NAME.gz 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
         
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.1.0
@@ -145,4 +137,4 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: TG notification #TG推送
-      run: curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=N1164+0和N1163+打包成功"
+      run: curl "https://sctapi.ftqq.com/SCT62842TGPT9i0XHeCHdqG6OR5m1x8Zm.send?title=N1164+0和N1163+打包成功"
