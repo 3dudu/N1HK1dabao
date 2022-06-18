@@ -135,4 +135,4 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: TG notification #TG推送
-      run: curl "https://sctapi.ftqq.com/${{ secrets.WC_TOKEN }}.send?title=N1164+0和N1163+打包成功"
+      run: curl "http://xyztech.good365.net:1880/send?title=N1+openwrt+build&text=N1164+0和N1163+打包成功&url=https://github.com/3dudu/N1HK1dabao/releases"
